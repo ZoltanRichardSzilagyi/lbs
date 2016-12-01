@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  	<property name="now" value="sysdate" dbms="oracle"/>
+  	<property name="now" value="now()" dbms="mysql"/>
+  	<property name="now" value="now()" dbms="postgresql"/>
+  	         
+	<changeSet id="create-user-table" author="zrs">
+		<createTable tableName="user">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="email" type="varchar(128)" />
+			<column name="first_name" type="varchar(64)" />
+			<column name="last_name" type="varchar(64)" />
+			<column name="password" type="varchar(128)" />
+			
+			<column name="created_by" type="int" />
+			<column name="created_on" type="datetime" />
+			<column name="last_modified_by" type="int" />
+			<column name="last_modified_on" type="datetime" />			
+		</createTable>
+		
+	</changeSet>
+         
+
+	<changeSet id="create-project-table" author="zrs">
+		<createTable tableName="project">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(256)" />
+			
+			<column name="created_by" type="int" >
+				<constraints foreignKeyName="fk_user_id_project_created_by" referencedTableName="user" referencedColumnNames="id"  />
+			</column>
+			<column name="created_on" type="datetime" />
+			<column name="last_modified_by" type="int" >
+				<constraints foreignKeyName="fk_user_id_project_last_modified_by" referencedTableName="user" referencedColumnNames="id" nullable="true" />
+			</column>
+			<column name="last_modified_on" type="datetime" />			
+		</createTable>
+
+	</changeSet>
+
+	<changeSet id="create-step-table" author="zrs">
+		<createTable tableName="step">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="project_id" type="int" />
+			<column name="name" type="varchar(256)" />
+			<column name="description" type="varchar(4096)" />
+			
+			<column name="created_by" type="int">
+				<constraints foreignKeyName="fk_user_id_step_created_by" referencedTableName="user" referencedColumnNames="id" />
+			</column>
+			<column name="created_on" type="datetime" />
+			<column name="last_modified_by" type="int" >
+				<constraints foreignKeyName="fk_user_id_step_last_modified_by" referencedTableName="user" referencedColumnNames="id" nullable="true" />
+			</column>
+			<column name="last_modified_on" type="datetime" />			
+		</createTable>		
+	</changeSet>
+	
+	<changeSet id="create-task-table" author="zrs">
+		<createTable tableName="task">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="step_id" type="int" />
+			<column name="name" type="varchar(256)" />			
+			<column name="created_by" type="int">
+				<constraints foreignKeyName="fk_user_id_task_created_by" referencedTableName="user" referencedColumnNames="id" />
+			</column>
+			<column name="created_on" type="datetime" />
+			<column name="last_modified_by" type="int" >
+				<constraints foreignKeyName="fk_user_id_task_last_modified_by" referencedTableName="user" referencedColumnNames="id" nullable="true" />
+			</column>
+			<column name="last_modified_on" type="datetime" />			
+		</createTable>		
+	</changeSet>
+	
+	<changeSet id="create-task-attribute-table" author="zrs">
+		<createTable tableName="task_attribute">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="task_id" type="int" />
+			<column name="name" type="varchar(128)" />
+			<column name="value" type="varchar(4096)" />			
+		</createTable>		
+	</changeSet>	
+	
+	<changeSet id="create-admin-user" author="zrs">
+		<insert tableName="user">
+			<column name="email" value="zoltan.richard.szilagyi@gmail.com" />
+			<column name="first_name" value="Zoltan" />
+			<column name="last_name" value="Szilagyi" />
+			<column name="password" value="password" />
+			<column name="created_on" value="${now}" />			
+		</insert>		
+	</changeSet>
+
+	<changeSet id="create-sample-project" author="zrs">
+		<insert tableName="project">
+			<column name="name" value="sample" />
+			<column name="created_on" value="${now}" />
+			<column name="created_by" value="1" />			
+		</insert>		
+	</changeSet>	
+
+	<changeSet id="create-sample-build-step" author="zrs">
+		<insert tableName="step">
+			<column name="name" value="sample build step" />
+			<column name="description" value="A sample build step for evaluation purposes." />
+			<column name="project_id" value="1" />
+			<column name="created_on" value="${now}" />
+			<column name="created_by" value="1" />			
+		</insert>		
+	</changeSet>
+	
+	<changeSet id="create-sample-deploy-step" author="zrs">
+		<insert tableName="step">
+			<column name="name" value="sample deploy step" />
+			<column name="description" value="A sample deploy step for evaluation purposes." />
+			<column name="project_id" value="1" />
+			<column name="created_on" value="${now}" />
+			<column name="created_by" value="1" />			
+		</insert>		
+	</changeSet>
+	
+
+</databaseChangeLog>

@@ -1,0 +1,5 @@
+dependencies {
+	compile project(':lbs-api')
+	
+	compile 'org.gradle:gradle-tooling-api:3.1'
+}

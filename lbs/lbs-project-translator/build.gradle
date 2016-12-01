@@ -1,0 +1,6 @@
+dependencies {
+	compile project(':lbs-api')
+	compile project(':lbs-task')
+	
+	compile 'org.apache.velocity:velocity:1.7'
+}

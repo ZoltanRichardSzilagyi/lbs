@@ -1,0 +1,40 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'lbs-agent'
+	version = '1.0.0'
+}
+
+dependencies {
+	compile project(':lbs-api')
+	compile project(':lbs-entity')
+	compile project(':lbs-project-generator')	
+	
+	compile "org.gradle:gradle-tooling-api:3.1"
+	
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-websocket')		
+	compile('org.springframework.boot:spring-boot-devtools')	
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-actuator-docs')
+	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}

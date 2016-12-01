@@ -1,0 +1,13 @@
+dependencies {
+	compile project(':lbs-api')
+	compile project(':lbs-project-translator')
+	compile project(':lbs-task')
+	
+	compile 'org.gradle:gradle-tooling-api:3.1'
+	
+	compile 'commons-io:commons-io:2.4'
+	
+	testCompile 'org.springframework:spring-context:4.3.1.RELEASE'
+	testCompile 'org.springframework:spring-test:4.3.1.RELEASE'
+	testCompile 'org.slf4j:slf4j-simple:1.7.10'
+}
