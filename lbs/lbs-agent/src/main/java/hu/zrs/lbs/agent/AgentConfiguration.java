@@ -1,5 +1,7 @@
 package hu.zrs.lbs.agent;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -28,11 +30,13 @@ public class AgentConfiguration {
 	}
 
 	@Bean
-	public Agent agent(@Value("${agent.id}") final String agentId, @Value("${agent.name}") final String agentName) {
+	public Agent agent(@Value("${agent.id}") final String agentId, @Value("${agent.name}") final String agentName, @Value("${agent.url}") final String agentUrl)
+			throws URISyntaxException {
 		final GenericAgent agent = new GenericAgent(agentId);
 		agent.setName(agentName);
 		// agent.setUptime(LocalDate.now());
 		agent.setInstallationPath(Paths.get("/implement/it"));
+		agent.setUri(new URI(agentUrl));
 		return agent;
 	}
 

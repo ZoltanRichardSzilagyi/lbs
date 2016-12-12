@@ -20,7 +20,7 @@ public class LbsAgentApplication {
 	@Bean
 	public CommandLineRunner runner(@Autowired final AgentRegistryClient agentClient) {
 		return args -> {
-			// agentClient.registerAgent();
+			agentClient.registerAgent();
 		};
 	}
 

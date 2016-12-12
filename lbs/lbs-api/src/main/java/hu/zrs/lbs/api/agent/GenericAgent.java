@@ -1,5 +1,6 @@
 package hu.zrs.lbs.api.agent;
 
+import java.net.URI;
 import java.nio.file.Path;
 
 public class GenericAgent implements Agent {
@@ -11,6 +12,8 @@ public class GenericAgent implements Agent {
 	private AgentStatus status;
 
 	private Path installationPath;
+
+	private URI uri;
 
 	// TODO fix serialization issue
 	// private LocalDate uptime;
@@ -61,6 +64,14 @@ public class GenericAgent implements Agent {
 		this.installationPath = installationPath;
 	}
 
+	@Override
+	public URI getUri() {
+		return uri;
+	}
+
+	public void setUri(final URI uri) {
+		this.uri = uri;
+	}
 
 	@Override
 	public AgentProperties<String, String> getProperties() {

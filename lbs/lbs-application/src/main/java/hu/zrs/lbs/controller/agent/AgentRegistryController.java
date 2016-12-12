@@ -26,9 +26,12 @@ public class AgentRegistryController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public GenericAgentProperties registerAgent(@RequestBody final GenericAgent agent) {
+		final GenericAgentProperties agentProperties = new GenericAgentProperties();
+		agent.setProperties(agentProperties);
 		agentRegistry.register(agent);
 		agent.setStatus(AgentStatus.REGISTERED);
-		return new GenericAgentProperties();
+
+		return agentProperties;
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

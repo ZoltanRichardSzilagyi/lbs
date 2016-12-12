@@ -1,5 +1,6 @@
 package hu.zrs.lbs.api.agent;
 
+import java.net.URI;
 import java.nio.file.Path;
 
 public interface Agent {
@@ -13,6 +14,8 @@ public interface Agent {
 	AgentStatus getStatus();
 
 	void setStatus(AgentStatus status);
+
+	URI getUri();
 
 	// LocalDate getUptime();
 

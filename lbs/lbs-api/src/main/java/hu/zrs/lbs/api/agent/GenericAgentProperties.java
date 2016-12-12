@@ -1,5 +1,6 @@
 package hu.zrs.lbs.api.agent;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,10 @@ public class GenericAgentProperties implements AgentProperties<String, String> {
 	@Override
 	public String getProperty(final String key) {
 		return properties.get(key);
+	}
+
+	public Map<String, String> getProperties() {
+		return Collections.unmodifiableMap(properties);
 	}
 
 }
