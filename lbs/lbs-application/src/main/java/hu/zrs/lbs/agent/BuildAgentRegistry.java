@@ -12,9 +12,9 @@ import hu.zrs.lbs.api.agent.Agent;
 import hu.zrs.lbs.api.agent.AgentRegistry;
 
 @Component
-public class GenericAgentRegistry implements AgentRegistry {
+public class BuildAgentRegistry implements AgentRegistry {
 
-	private static final Logger logger = LoggerFactory.getLogger(GenericAgentRegistry.class);
+	private static final Logger logger = LoggerFactory.getLogger(BuildAgentRegistry.class);
 
 	private final Set<Agent> agents = Collections.synchronizedSet(new HashSet<>());
 

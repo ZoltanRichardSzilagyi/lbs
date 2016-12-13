@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.zrs.lbs.api.agent.Agent;
 import hu.zrs.lbs.api.agent.AgentRegistry;
 import hu.zrs.lbs.api.agent.AgentStatus;
-import hu.zrs.lbs.api.agent.GenericAgent;
+import hu.zrs.lbs.api.agent.BuildAgent;
 
 @RestController
 @RequestMapping("/agent/ping")
@@ -23,7 +23,7 @@ public class AgentPingController {
 	private AgentRegistry agentRegistry;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public AgentStatus ping(@RequestBody final GenericAgent agentParameter) {
+	public AgentStatus ping(@RequestBody final BuildAgent agentParameter) {
 		AgentStatus agentStatusResponse = null;
 		final Agent agent = agentRegistry.getAgent(agentParameter);
 		if (agent != null) {

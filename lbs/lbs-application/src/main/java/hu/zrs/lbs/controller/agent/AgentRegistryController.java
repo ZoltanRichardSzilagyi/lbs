@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.zrs.lbs.api.agent.Agent;
 import hu.zrs.lbs.api.agent.AgentRegistry;
 import hu.zrs.lbs.api.agent.AgentStatus;
-import hu.zrs.lbs.api.agent.GenericAgent;
+import hu.zrs.lbs.api.agent.BuildAgent;
 import hu.zrs.lbs.api.agent.GenericAgentProperties;
 
 @RestController
@@ -25,7 +25,7 @@ public class AgentRegistryController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public GenericAgentProperties registerAgent(@RequestBody final GenericAgent agent) {
+	public GenericAgentProperties registerAgent(@RequestBody final BuildAgent agent) {
 		final GenericAgentProperties agentProperties = new GenericAgentProperties();
 		agent.setProperties(agentProperties);
 		agentRegistry.register(agent);
@@ -35,7 +35,7 @@ public class AgentRegistryController {
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
-	public void unregisterAgent(@RequestBody final GenericAgent agent) {
+	public void unregisterAgent(@RequestBody final BuildAgent agent) {
 		agentRegistry.unregister(agent);
 		agent.setStatus(AgentStatus.UNREGISTERED);
 	}

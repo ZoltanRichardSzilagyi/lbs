@@ -2,6 +2,7 @@ package hu.zrs.lbs.api.agent;
 
 import java.net.URI;
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 public interface Agent {
 
@@ -16,6 +17,8 @@ public interface Agent {
 	void setStatus(AgentStatus status);
 
 	URI getUri();
+
+	LocalDate getTimeOfLastActivity();
 
 	// LocalDate getUptime();
 

@@ -2,8 +2,9 @@ package hu.zrs.lbs.api.agent;
 
 import java.net.URI;
 import java.nio.file.Path;
+import java.time.LocalDate;
 
-public class GenericAgent implements Agent {
+public class BuildAgent implements Agent {
 
 	private String id;
 
@@ -15,15 +16,17 @@ public class GenericAgent implements Agent {
 
 	private URI uri;
 
+	private LocalDate timeOfLastActivity;
+
 	// TODO fix serialization issue
 	// private LocalDate uptime;
 
 	private AgentProperties<String, String> properties;
 
-	public GenericAgent() {
+	public BuildAgent() {
 	}
 
-	public GenericAgent(final String id) {
+	public BuildAgent(final String id) {
 		this.id = id;
 	}
 
@@ -71,6 +74,14 @@ public class GenericAgent implements Agent {
 
 	public void setUri(final URI uri) {
 		this.uri = uri;
+	}
+
+	public LocalDate getTimeOfLastActivity() {
+		return timeOfLastActivity;
+	}
+
+	public void setTimeOfLastActivity(final LocalDate timeOfLastActivity) {
+		this.timeOfLastActivity = timeOfLastActivity;
 	}
 
 	@Override
