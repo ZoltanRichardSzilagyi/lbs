@@ -74,7 +74,9 @@
 				<constraints primaryKey="true" />
 			</column>
 			<column name="step_id" type="int" />
-			<column name="name" type="varchar(256)" />			
+			<column name="name" type="varchar(256)" />
+			<column name="type" type="varchar(128)" />
+			<column name="description" type="varchar(4096)" />						
 			<column name="created_by" type="int">
 				<constraints foreignKeyName="fk_user_id_task_created_by" referencedTableName="user" referencedColumnNames="id" />
 			</column>
@@ -93,7 +95,15 @@
 			</column>
 			<column name="task_id" type="int" />
 			<column name="name" type="varchar(128)" />
-			<column name="value" type="varchar(4096)" />			
+			<column name="value" type="varchar(4096)" />
+			<column name="created_by" type="int">
+				<constraints foreignKeyName="fk_user_id_task_attribute_created_by" referencedTableName="user" referencedColumnNames="id" />
+			</column>
+			<column name="created_on" type="datetime" />
+			<column name="last_modified_by" type="int" >
+				<constraints foreignKeyName="fk_user_id_task_attribute_last_modified_by" referencedTableName="user" referencedColumnNames="id" nullable="true" />
+			</column>
+			<column name="last_modified_on" type="datetime" />						
 		</createTable>		
 	</changeSet>	
 	
@@ -135,5 +145,25 @@
 		</insert>		
 	</changeSet>
 	
+	<changeSet id="create-sample-build-echo-task" author="zrs">
+		<insert tableName="task">
+			<column name="name" value="sample build step" />
+			<column name="description" value="A sample build task for evaluation purposes." />
+			<column name="type" value="ShellExecute" />
+			<column name="step_id" value="1" />
+			<column name="created_on" value="${now}" />
+			<column name="created_by" value="1" />			
+		</insert>		
+	</changeSet>
+	
+	<changeSet id="create-sample-build-echo-task-attribute" author="zrs">
+		<insert tableName="task_attribute">
+			<column name="task_id" value="1" />
+			<column name="name" value="shellCommand" />
+			<column name="value" value="echo 'build'" />			
+			<column name="created_on" value="${now}" />
+			<column name="created_by" value="1" />			
+		</insert>		
+	</changeSet>
 
 </databaseChangeLog>

@@ -24,11 +24,13 @@ public class Task implements Serializable{
 
 	private String name;
 
-	@OneToMany
-	@JsonIgnore
+	private String description;
+
+	@OneToMany(mappedBy = "task")
 	private List<TaskAttribute> attributes;
 
 	@ManyToOne
+	@JsonIgnore
 	private Step step;
 
 	public Task() {
@@ -61,6 +63,14 @@ public class Task implements Serializable{
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(final String description) {
+		this.description = description;
 	}
 
 	public List<TaskAttribute> getAttributes() {

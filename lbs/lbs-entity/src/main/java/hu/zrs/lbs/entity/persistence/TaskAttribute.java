@@ -21,7 +21,7 @@ public class TaskAttribute implements Serializable{
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "task_id")
+	@JoinColumn(name = "task_id", table = "task_attribute")
 	@JsonIgnore
 	private Task task;
 
