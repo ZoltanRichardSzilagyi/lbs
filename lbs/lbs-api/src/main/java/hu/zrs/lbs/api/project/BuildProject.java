@@ -6,13 +6,24 @@ import hu.zrs.lbs.api.step.Step;
 
 public class BuildProject implements Project {
 
-	private final String name;
+	private final Integer id;
 
-	private final List<Step> steps;
+	private String name;
 
-	public BuildProject(final String name, final List<Step> steps) {
+	private List<Step> steps;
+
+	public BuildProject(final Integer id) {
+		this.id = id;
+	}
+
+	public BuildProject(final Integer id, final String name) {
+		this.id = id;
 		this.name = name;
-		this.steps = steps;
+	}
+
+
+	public Integer getId() {
+		return id;
 	}
 
 	@Override
@@ -20,9 +31,17 @@ public class BuildProject implements Project {
 		return name;
 	}
 
+	public void setName(final String name) {
+		this.name = name;
+	}
+
 	@Override
 	public List<Step> getSteps() {
 		return steps;
+	}
+
+	public void setSteps(final List<Step> steps) {
+		this.steps = steps;
 	}
 
 }
