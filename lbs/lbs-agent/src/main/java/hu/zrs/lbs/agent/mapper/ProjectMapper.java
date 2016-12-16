@@ -18,7 +18,9 @@ public class ProjectMapper implements EntityMapper<hu.zrs.lbs.entity.persistence
 	@Override
 	public Project map(final hu.zrs.lbs.entity.persistence.Project project) {
 		final List<hu.zrs.lbs.api.step.Step> buildSteps = stepMapper.map(project.getSteps());
-		return new BuildProject(project.getName(), buildSteps);
+		final BuildProject buildProject = new BuildProject(project.getId(), project.getName());
+		buildProject.setSteps(buildSteps);
+		return buildProject;
 	}
 
 }

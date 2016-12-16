@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import hu.zrs.lbs.api.project.execution.CommandExecutionQueue;
 import hu.zrs.lbs.entity.persistence.Project;
-import hu.zrs.lbs.project.execution.ExecuteProjectCommand;
+import hu.zrs.lbs.project.executor.ExecuteProjectCommand;
 import hu.zrs.lbs.repository.ProjectRepository;
 
 @RequestMapping("/api/project/{projectId}/execute")

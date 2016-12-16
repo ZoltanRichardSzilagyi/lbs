@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import hu.zrs.lbs.api.project.BuildProject;
-import hu.zrs.lbs.api.project.Project;
 import hu.zrs.lbs.api.step.BuildStep;
 import hu.zrs.lbs.api.step.Step;
 import hu.zrs.lbs.task.Copy;
@@ -36,7 +35,8 @@ public class GradleProjectGeneratorIntegrationTest {
 		final Step deployStep = createDeployStep();
 		final Step buildStep = createBuildStep();
 		
-		final Project buildProject = new BuildProject("test-build", Arrays.asList(buildStep,deployStep));
+		final BuildProject buildProject = new BuildProject(1, "test-build");
+		buildProject.setSteps(Arrays.asList(buildStep, deployStep));
 
 		final ProjectGeneratorContext generatorContext = new ProjectGeneratorContext(buildProject, Paths.get(projectPath));
 		projectGenerator.generate(buildProject, generatorContext);
