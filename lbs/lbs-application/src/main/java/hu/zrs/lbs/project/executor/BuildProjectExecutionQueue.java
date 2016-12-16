@@ -5,7 +5,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.springframework.stereotype.Component;
 
-import hu.zrs.lbs.api.project.execution.CommandExecutionQueue;
+import hu.zrs.lbs.api.project.executor.CommandExecutionQueue;
 
 @Component
 public class BuildProjectExecutionQueue implements CommandExecutionQueue<ExecuteProjectCommand> {

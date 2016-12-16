@@ -1,4 +1,4 @@
-package hu.zrs.lbs.api.project.execution;
+package hu.zrs.lbs.api.command;
 
 public class Command<P> {
 

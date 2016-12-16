@@ -1,4 +1,6 @@
-package hu.zrs.lbs.api.project.execution;
+package hu.zrs.lbs.api.project.executor;
+
+import hu.zrs.lbs.api.command.Command;
 
 public interface CommandExecutionQueue<C extends Command> {
 
