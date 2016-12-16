@@ -20,6 +20,12 @@ public interface Agent {
 
 	LocalDate getTimeOfLastActivity();
 
+	public Boolean isIdle();
+
+	void setToIdle();
+
+	void setToBusy();
+
 	// LocalDate getUptime();
 
 	<K, V> AgentProperties<K, V> getProperties();

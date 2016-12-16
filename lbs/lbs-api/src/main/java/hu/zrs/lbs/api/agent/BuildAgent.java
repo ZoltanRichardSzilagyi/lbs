@@ -18,6 +18,8 @@ public class BuildAgent implements Agent {
 
 	private LocalDate timeOfLastActivity;
 
+	private Boolean idle;
+
 	// TODO fix serialization issue
 	// private LocalDate uptime;
 
@@ -76,6 +78,22 @@ public class BuildAgent implements Agent {
 		this.uri = uri;
 	}
 
+	@Override
+	public Boolean isIdle() {
+		return idle;
+	}
+
+	@Override
+	public void setToIdle() {
+		this.idle = true;
+	}
+
+	@Override
+	public void setToBusy() {
+		this.idle = false;
+	}
+
+	@Override
 	public LocalDate getTimeOfLastActivity() {
 		return timeOfLastActivity;
 	}
@@ -105,5 +123,6 @@ public class BuildAgent implements Agent {
 	public boolean equals(final Object obj) {
 		return id.equals(obj);
 	}
+
 
 }

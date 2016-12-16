@@ -1,5 +1,6 @@
-package hu.zrs.lbs.controller.api;
+package hu.zrs.lbs.controller.executor;
 
+import java.util.Random;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class ProjectExecutorController {
 	private CommandExecutor<ExecuteProjectCommand> projectExecutorService;
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public void execute(@PathVariable final Integer projectId) {
-		executeCommand(projectId, projectExecutorService::execute);
+	public ProjectExecutionStatus execute(@PathVariable final Integer projectId) {
+		return executeCommand(projectId, projectExecutorService::execute);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
@@ -33,16 +34,18 @@ public class ProjectExecutorController {
 		executeCommand(projectId, projectExecutorService::execute);
 	}
 
-	private void executeCommand(final Integer projectId, final Consumer<ExecuteProjectCommand> queueOperation) {
+	private ProjectExecutionStatus executeCommand(final Integer projectId, final Consumer<ExecuteProjectCommand> queueOperation) {
 		final Project project = projectRepository.findOne(projectId);
+		ProjectExecutionStatus executionStatus = null;
+		final Integer executionId = new Random().nextInt();
 		if (project != null) {
-			final ExecuteProjectCommand executeCommand = new ExecuteProjectCommand(project);
+			final ExecuteProjectCommand executeCommand = new ExecuteProjectCommand(project, executionId);
 			queueOperation.accept(executeCommand);
+			executionStatus = ProjectExecutionStatus.successExecution(executionId, projectId);
 		} else {
-			// TODO sent back code 500
+			executionStatus = ProjectExecutionStatus.unsuccessExecution(executionId, projectId);
 		}
-		// TODO send response
-
+		return executionStatus;
 	}
 
 }

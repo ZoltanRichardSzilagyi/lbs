@@ -1,8 +1,10 @@
 package hu.zrs.lbs.agent;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import hu.zrs.lbs.api.agent.Agent;
 import hu.zrs.lbs.api.agent.AgentRegistry;
+import hu.zrs.lbs.api.agent.criteria.AgentCriteria;
 
 @Component
 public class BuildAgentRegistry implements AgentRegistry {
@@ -40,6 +43,12 @@ public class BuildAgentRegistry implements AgentRegistry {
 	@Override
 	public void unregister(final Agent agent) {
 		agents.remove(agent);
+	}
+
+	@Override
+	// TODO it has to be an atomic operation
+	public Collection<Agent> getAgent(final AgentCriteria criteria) {
+		return agents.stream().filter(agent -> criteria.evaluate(agent)).collect(Collectors.toList());
 	}
 
 }

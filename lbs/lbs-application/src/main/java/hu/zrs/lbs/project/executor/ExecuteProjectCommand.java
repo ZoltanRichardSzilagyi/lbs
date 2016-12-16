@@ -6,8 +6,8 @@ import hu.zrs.lbs.entity.persistence.Project;
 public class ExecuteProjectCommand extends Command<Project> {
 
 
-	public ExecuteProjectCommand(final Project request) {
-		super(request);
+	public ExecuteProjectCommand(final Project request, final Integer id) {
+		super(request, id);
 	}
 
 }
