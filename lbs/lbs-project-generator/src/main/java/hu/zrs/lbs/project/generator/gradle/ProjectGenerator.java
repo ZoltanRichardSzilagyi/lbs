@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import hu.zrs.lbs.api.project.Project;
 import hu.zrs.lbs.api.project.generator.Generator;
@@ -13,6 +15,8 @@ import hu.zrs.lbs.api.translator.Translator;
 import hu.zrs.lbs.api.translator.resolver.TranslatorResolver;
 
 public class ProjectGenerator implements Generator<Project, ProjectGeneratorContext> {
+
+	private static final Logger logger = LoggerFactory.getLogger(ProjectGenerator.class);
 
 	private final TranslatorResolver translatorResolver;
 
@@ -24,7 +28,7 @@ public class ProjectGenerator implements Generator<Project, ProjectGeneratorCont
 	}
 
 	@Override
-	public void generate(Project project, final ProjectGeneratorContext generatorContext) {
+	public void generate(final Project project, final ProjectGeneratorContext generatorContext) {
 		createProjectDirectory(generatorContext);
 		createBuildFile(generatorContext);
 		createWorkingDirectory(generatorContext);
@@ -41,16 +45,16 @@ public class ProjectGenerator implements Generator<Project, ProjectGeneratorCont
 
 		try {
 			FileUtils.forceDelete(projectRootDirectory);
-		} catch (final IOException e) {
-			e.printStackTrace();
+		} catch (final IOException exception) {
+			logger.error(exception.getMessage(), exception);
 		}
 
 		projectRootDirectory.mkdirs();
 		generatorContext.setProjectRootDirectory(projectRootDirectory);
 	}
 	
-	private void createWorkingDirectory(ProjectGeneratorContext generatorContext){
-		File workingDirectory = new File(generatorContext.getProjectRootDirectory(), "workingDirectory");
+	private void createWorkingDirectory(final ProjectGeneratorContext generatorContext){
+		final File workingDirectory = new File(generatorContext.getProjectRootDirectory(), "workingDirectory");
 		workingDirectory.mkdir();
 	}
 
@@ -58,8 +62,8 @@ public class ProjectGenerator implements Generator<Project, ProjectGeneratorCont
 		final File buildFile = new File(generatorContext.getProjectRootDirectory(), "build.gradle");
 		try {
 			buildFile.createNewFile();
-		} catch (final IOException e) {
-			e.printStackTrace();
+		} catch (final IOException exception) {
+			logger.error(exception.getMessage(), exception);
 		}
 		generatorContext.setProjectBuildFile(buildFile);
 	}
@@ -71,8 +75,8 @@ public class ProjectGenerator implements Generator<Project, ProjectGeneratorCont
 
 		try (FileWriter buildFileWriter = new FileWriter(buildFile);) {
 			buildFileWriter.write(translatedProject);
-		} catch (final IOException e) {
-			e.printStackTrace();
+		} catch (final IOException exception) {
+			logger.error(exception.getMessage(), exception);
 		}
 	}
 
