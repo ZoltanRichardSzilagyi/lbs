@@ -1,6 +1,7 @@
-package hu.zrs.lbs.task;
+package hu.zrs.lbs.task.build;
 
 import hu.zrs.lbs.api.task.Task;
+import hu.zrs.lbs.api.task.TaskAttribute;
 
 public class ShellExecute implements Task {
 
@@ -14,6 +15,7 @@ public class ShellExecute implements Task {
 
 	private String name;
 
+	@TaskAttribute
 	private String shellCommand;
 
 

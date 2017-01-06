@@ -1,11 +1,10 @@
-package hu.zrs.lbs.task;
+package hu.zrs.lbs.task.build;
 
 import hu.zrs.lbs.api.task.Task;
 import hu.zrs.lbs.api.task.TaskAttribute;
 
 public class Copy implements Task {
 
-	@TaskAttribute
 	private String name;
 	@TaskAttribute
 	private String from;
@@ -34,6 +33,7 @@ public class Copy implements Task {
 		return name;
 	}
 
+	@Override
 	public void setName(final String name) {
 		this.name = name;
 	}

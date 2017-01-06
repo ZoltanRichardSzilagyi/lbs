@@ -27,7 +27,6 @@
 		</createTable>
 		
 	</changeSet>
-         
 
 	<changeSet id="create-project-table" author="zrs">
 		<createTable tableName="project">
@@ -68,6 +67,31 @@
 		</createTable>		
 	</changeSet>
 	
+	<changeSet id="create-task-type-table" author="zrs">
+		<createTable tableName="task_type">
+			<column name="id" type="varchar(32)">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="type" type="varchar(128)" />
+			<column name="name" type="varchar(128)" />
+			<column name="description" type="varchar(1024)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-task-type-attribute-table" author="zrs">
+		<createTable tableName="task_type_attribute">
+			<column name="id" type="varchar(32)">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="task_id" type="varchar(32)">
+				<constraints foreignKeyName="fk_task_type_id_task_attribute" referencedTableName="task_type" referencedColumnNames="id" />
+			</column>
+			<column name="name" type="varchar(128)" />
+			<column name="title" type="varchar(128)" />
+			<column name="description" type="varchar(1024)" />
+		</createTable>
+	</changeSet>
+	
 	<changeSet id="create-task-table" author="zrs">
 		<createTable tableName="task">
 			<column name="id" type="int" autoIncrement="true">
@@ -75,7 +99,7 @@
 			</column>
 			<column name="step_id" type="int" />
 			<column name="name" type="varchar(256)" />
-			<column name="type" type="varchar(128)" />
+			<column name="type_id" type="varchar(32)" />
 			<column name="description" type="varchar(4096)" />						
 			<column name="created_by" type="int">
 				<constraints foreignKeyName="fk_user_id_task_created_by" referencedTableName="user" referencedColumnNames="id" />
@@ -105,7 +129,11 @@
 			</column>
 			<column name="last_modified_on" type="datetime" />						
 		</createTable>		
-	</changeSet>	
+	</changeSet>
+	
+	<changeSet id="insert-task-descriptors" author="zrs" runAlways="true">
+		<customChange class="hu.zrs.lbs.task.BuildTaskDescriptorChangeTaskDelegator" />
+	</changeSet>		
 	
 	<changeSet id="create-admin-user" author="zrs">
 		<insert tableName="user">
@@ -149,7 +177,7 @@
 		<insert tableName="task">
 			<column name="name" value="sample build step" />
 			<column name="description" value="A sample build task for evaluation purposes." />
-			<column name="type" value="ShellExecute" />
+			<column name="type_id" value="ShellExecute" />
 			<column name="step_id" value="1" />
 			<column name="created_on" value="${now}" />
 			<column name="created_by" value="1" />			
@@ -165,5 +193,5 @@
 			<column name="created_by" value="1" />			
 		</insert>		
 	</changeSet>
-
+	
 </databaseChangeLog>

@@ -3,6 +3,7 @@ package hu.zrs.lbs.project.generator.gradle;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,12 +15,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import hu.zrs.lbs.api.project.BuildProject;
 import hu.zrs.lbs.api.step.BuildStep;
 import hu.zrs.lbs.api.step.Step;
-import hu.zrs.lbs.task.Copy;
-import hu.zrs.lbs.task.GradleBuildExecutor;
-import hu.zrs.lbs.task.GradleTaskExecutor;
-import hu.zrs.lbs.task.ShellExecute;
+import hu.zrs.lbs.task.build.Copy;
+import hu.zrs.lbs.task.build.GradleBuildExecutor;
+import hu.zrs.lbs.task.build.GradleTaskExecutor;
+import hu.zrs.lbs.task.build.ShellExecute;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@Ignore
 @ContextConfiguration(classes = GradleProjectGeneratorIntegrationTestConfiguration.class)
 public class GradleProjectGeneratorIntegrationTest { 
 	

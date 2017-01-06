@@ -9,6 +9,7 @@ import hu.zrs.lbs.agent.tasks.BarTask;
 import hu.zrs.lbs.agent.tasks.FakeTask;
 import hu.zrs.lbs.agent.tasks.FooTask;
 import hu.zrs.lbs.api.task.Task;
+import hu.zrs.lbs.api.task.TaskTypeMapFactory;
 
 public class TaskTypeMapFactoryTest {
 

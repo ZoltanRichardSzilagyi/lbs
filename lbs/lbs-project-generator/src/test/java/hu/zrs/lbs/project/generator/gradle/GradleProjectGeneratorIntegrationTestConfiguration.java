@@ -13,7 +13,7 @@ import hu.zrs.lbs.api.translator.Translator;
 import hu.zrs.lbs.api.translator.resolver.TranslatorResolver;
 import hu.zrs.lbs.project.generator.gradle.ProjectGenerator;
 import hu.zrs.lbs.project.generator.gradle.StepGenerator;
-import hu.zrs.lbs.task.ShellExecute;
+import hu.zrs.lbs.task.build.ShellExecute;
 import hu.zrs.lbs.translator.gradle.project.BuildProjectTranslator;
 import hu.zrs.lbs.translator.gradle.resolver.GradleTranslatorResolver;
 import hu.zrs.lbs.translator.gradle.task.DefaultTaskTranslator;

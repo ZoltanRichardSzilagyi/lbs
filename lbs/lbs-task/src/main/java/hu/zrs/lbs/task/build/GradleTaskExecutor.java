@@ -1,4 +1,4 @@
-package hu.zrs.lbs.task;
+package hu.zrs.lbs.task.build;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +8,6 @@ import hu.zrs.lbs.api.task.TaskAttribute;
 
 public class GradleTaskExecutor implements Task{
 
-	@TaskAttribute
 	private String name;
 
 	@TaskAttribute
@@ -37,6 +36,7 @@ public class GradleTaskExecutor implements Task{
 		return name;
 	}
 
+	@Override
 	public void setName(final String name) {
 		this.name = name;
 	}

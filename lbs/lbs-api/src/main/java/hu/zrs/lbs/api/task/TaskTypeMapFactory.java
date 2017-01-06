@@ -1,4 +1,4 @@
-package hu.zrs.lbs.agent.task;
+package hu.zrs.lbs.api.task;
 
 import java.io.File;
 import java.net.URL;
@@ -6,10 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
-import hu.zrs.lbs.api.task.Task;
-
+// TODO move to task module, create interface in api module
 public class TaskTypeMapFactory {
 
 	public Map<String, Class<Task>> createTaskTypeMap(final String taskPackageName) {
@@ -30,7 +27,8 @@ public class TaskTypeMapFactory {
 	}
 
 	private void loadTaskType(final String taskPackageName, final Map<String, Class<Task>> taskTypes, final File classFile) {
-		final String taskName = StringUtils.substringBefore(classFile.getName(), ".");
+		final String className = classFile.getName();
+		final String taskName = className.substring(0, className.lastIndexOf("."));
 		final String taskClassName = taskPackageName + "." + taskName;
 		Class<?> taskClass = null;
 		try {

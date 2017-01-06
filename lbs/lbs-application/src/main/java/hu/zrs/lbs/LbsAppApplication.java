@@ -6,21 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import hu.zrs.lbs.api.task.TaskTypeMapFactory;
 import hu.zrs.lbs.project.executor.BuildProjectCommandExecutor;
+import hu.zrs.lbs.task.BuildTaskDescriptorChangeTaskDelegator;
+import hu.zrs.lbs.task.BuildTaskDescriptorTaskChange;
 import liquibase.integration.spring.SpringLiquibase;
 
 @SpringBootApplication
 
 public class LbsAppApplication {
 
-	public static void main(final String[] args) {
-		SpringApplication.run(LbsAppApplication.class, args);
+	public static void main(final String[] args) throws JsonProcessingException {
+		final ConfigurableApplicationContext applicationContext = SpringApplication.run(LbsAppApplication.class, args);
+	}
+
+	@Bean
+	public BuildTaskDescriptorTaskChange taskDescriptorChange() {
+		return new BuildTaskDescriptorTaskChange();
 	}
 
 	@Bean(name = { "liquibase" })
-	public SpringLiquibase getLiquibase(@Autowired final DataSource dataSource) {
+	public SpringLiquibase getLiquibase(@Autowired final DataSource dataSource, @Autowired final BuildTaskDescriptorTaskChange taskDescriptorTaskChange) {
+		BuildTaskDescriptorChangeTaskDelegator.setDelegatedChangeTask(taskDescriptorTaskChange);
 		final SpringLiquibase springLiquibase = new SpringLiquibase();
 		springLiquibase.setDataSource(dataSource);
 		springLiquibase.setChangeLog("classpath:db/db-changelog.xml");
@@ -33,5 +45,11 @@ public class LbsAppApplication {
 			buildProjectCommandExecutor.startExecution();
 		};
 	}
+
+	@Bean
+	TaskTypeMapFactory taskTypeMapFactory() {
+		return new TaskTypeMapFactory();
+	}
+
 
 }

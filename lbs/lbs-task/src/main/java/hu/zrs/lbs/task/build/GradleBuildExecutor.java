@@ -1,4 +1,4 @@
-package hu.zrs.lbs.task;
+package hu.zrs.lbs.task.build;
 
 import java.util.Arrays;
 import java.util.List;

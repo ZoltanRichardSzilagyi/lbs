@@ -97,9 +97,8 @@ public class ProjectGenerator implements Generator<Project, ProjectGeneratorCont
 
 		try (FileWriter fileWriter = new FileWriter(settingsFile);) {
 			fileWriter.write(settings.toString());
-		} catch (final IOException e) {
-			e.printStackTrace();
-
+		} catch (final IOException exception) {
+			logger.error(exception.getMessage(), exception);
 		}
 
 	}

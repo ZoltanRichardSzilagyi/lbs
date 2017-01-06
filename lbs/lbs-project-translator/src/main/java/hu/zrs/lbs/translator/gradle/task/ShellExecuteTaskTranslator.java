@@ -1,7 +1,7 @@
 package hu.zrs.lbs.translator.gradle.task;
 
 import hu.zrs.lbs.api.translator.Translator;
-import hu.zrs.lbs.task.ShellExecute;
+import hu.zrs.lbs.task.build.ShellExecute;
 import hu.zrs.lbs.translator.gradle.template.TemplateBuilder;
 import hu.zrs.lbs.translator.gradle.template.TemplateBuilderFactory;
 

@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import hu.zrs.lbs.agent.task.TaskTypeMapFactory;
 import hu.zrs.lbs.api.agent.Agent;
 import hu.zrs.lbs.api.agent.BuildAgent;
 import hu.zrs.lbs.api.task.Task;
+import hu.zrs.lbs.api.task.TaskTypeMapFactory;
 
 @Configuration
 public class AgentConfiguration {
@@ -26,7 +26,7 @@ public class AgentConfiguration {
 
 	@Bean("taskTypes")
 	public Map<String, Class<Task>> taskTypes(@Autowired final TaskTypeMapFactory taskTypeMapFactory) {
-		return taskTypeMapFactory.createTaskTypeMap("hu.zrs.lbs.task");
+		return taskTypeMapFactory.createTaskTypeMap("hu.zrs.lbs.task.build");
 	}
 
 	@Bean

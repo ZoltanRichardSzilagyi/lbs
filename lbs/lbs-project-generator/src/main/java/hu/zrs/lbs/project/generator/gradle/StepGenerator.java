@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import hu.zrs.lbs.api.project.generator.Generator;
 import hu.zrs.lbs.api.step.Step;
 import hu.zrs.lbs.api.task.Task;
@@ -15,39 +18,41 @@ import hu.zrs.lbs.translator.gradle.template.TemplateBuilderFactory;
 
 public class StepGenerator implements Generator<Step, ProjectGeneratorContext> {
 
+	private static final Logger logger = LoggerFactory.getLogger(StepGenerator.class);
+
 	private final TranslatorResolver translatorResolver;
 
 	private final TemplateBuilderFactory templateBuilderFactory;
 
-	public StepGenerator(final TranslatorResolver translatorResolver, TemplateBuilderFactory templateBuilderFactory) {
+	public StepGenerator(final TranslatorResolver translatorResolver, final TemplateBuilderFactory templateBuilderFactory) {
 		this.translatorResolver = translatorResolver;
 		this.templateBuilderFactory = templateBuilderFactory;
 	}
 
 	@Override
-	public void generate(Step step, ProjectGeneratorContext generatorContext) {
+	public void generate(final Step step, final ProjectGeneratorContext generatorContext) {
 		final File projectDirectory = createProjectDirectory(step, generatorContext);
 		final File buildFile = BuildFileUtil.createBuildFile(projectDirectory);
 		generateBuildFile(step, buildFile);
 		generatorContext.addProjectToInclude(step.getName());
 	}
 
-	private File createProjectDirectory(Step step, ProjectGeneratorContext generatorContext) {
+	private File createProjectDirectory(final Step step, final ProjectGeneratorContext generatorContext) {
 		final File projectDirectory = new File(generatorContext.getProjectRootDirectory(), step.getName());
 		projectDirectory.mkdir();
 		return projectDirectory;
 	}
 
-	private void generateBuildFile(Step step, File buildFile) {
+	private void generateBuildFile(final Step step, final File buildFile) {
 		try (FileWriter fileWriter = new FileWriter(buildFile)) {
 			final String translatedStep = translateStep(step);
 			fileWriter.write(translatedStep);
 		} catch (final IOException exception) {
-			exception.printStackTrace();
+			logger.error(exception.getMessage(), exception);
 		}
 	}
 
-	private String translateStep(Step step) {
+	private String translateStep(final Step step) {
 		final TemplateBuilder templateBuilder = templateBuilderFactory.getBuilder("GradleStep.gtpl");
 		final String translatedTasks = translateTasks(step);
 		templateBuilder.addParameter("tasks", translatedTasks);
@@ -55,7 +60,7 @@ public class StepGenerator implements Generator<Step, ProjectGeneratorContext> {
 		return templateBuilder.getContent();
 	}
 
-	private String translateTasks(Step step) {
+	private String translateTasks(final Step step) {
 		final StringBuilder translatedTasks = new StringBuilder();
 		for (final Task task : step.getTasks()) {
 			final Translator<Translatable> taskTranslator = translatorResolver.resolve(task);
