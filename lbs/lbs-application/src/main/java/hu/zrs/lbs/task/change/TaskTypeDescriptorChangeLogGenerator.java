@@ -49,9 +49,7 @@ public class TaskTypeDescriptorChangeLogGenerator {
 
 		List<TaskAttributeDescriptor> taskAttributeDescriptors = new ArrayList<>();
 
-		taskDescriptors.forEach(taskDescriptor -> {
-			taskAttributeDescriptors.addAll(taskDescriptor.getAttributeIdentifiers());
-		});
+		taskDescriptors.forEach(taskDescriptor -> taskAttributeDescriptors.addAll(taskDescriptor.getAttributeIdentifiers()));
 
 		DatabaseChangeLog databaseChangeLog = new DatabaseChangeLog();
 
@@ -64,13 +62,12 @@ public class TaskTypeDescriptorChangeLogGenerator {
 	}
 
 	private void createChangeSet(final CSVSerializedTaskDescriptor csvTaskDescriptor, final DatabaseChangeLog databaseChangeLog, final String tableName) {
-		ChangeSet taskDescriptorChangeSet = initializeChangeset(databaseChangeLog, tableName, csvTaskDescriptor.getFields());
+		ChangeSet taskDescriptorChangeSet = initializeChangeset(databaseChangeLog, tableName);
 		databaseChangeLog.addChangeSet(taskDescriptorChangeSet);
 		LoadUpdateDataChange taskDescriptorChange = createTaskDescriptorChangeSet(tableName, csvTaskDescriptor);
 		taskDescriptorChangeSet.addChange(taskDescriptorChange);
 		taskDescriptorChange.setChangeSet(taskDescriptorChangeSet);
-	};
-
+	}
 
 	private LoadUpdateDataChange createTaskDescriptorChangeSet(final String tableName, final CSVSerializedTaskDescriptor csvTaskDescriptor) {
 		LoadUpdateDataChange loadUpdateChange = new LoadUpdateDataChange();
@@ -96,7 +93,7 @@ public class TaskTypeDescriptorChangeLogGenerator {
 		return loadUpdateChange;
 	}
 
-	private ChangeSet initializeChangeset(final DatabaseChangeLog databaseChangeLog, final String tableName, final Collection<String> fields) {
+	private ChangeSet initializeChangeset(final DatabaseChangeLog databaseChangeLog, final String tableName) {
 		return new ChangeSet(tableName + "-load-or-update", "application", false, true, null, null, null, true, null, databaseChangeLog);
 	}
 

@@ -6,7 +6,7 @@ public interface CommandExecutionQueue<C extends Command> {
 
 	void add(C executionCommand);
 
-	C take();
+	C take() throws InterruptedException;
 
 	void remove(C executionCommand);
 

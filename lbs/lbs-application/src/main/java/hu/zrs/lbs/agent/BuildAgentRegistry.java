@@ -48,7 +48,7 @@ public class BuildAgentRegistry implements AgentRegistry {
 	@Override
 	// TODO it has to be an atomic operation
 	public Collection<Agent> getAgent(final AgentCriteria criteria) {
-		return agents.stream().filter(agent -> criteria.evaluate(agent)).collect(Collectors.toList());
+		return agents.stream().filter(criteria::evaluate).collect(Collectors.toList());
 	}
 
 }

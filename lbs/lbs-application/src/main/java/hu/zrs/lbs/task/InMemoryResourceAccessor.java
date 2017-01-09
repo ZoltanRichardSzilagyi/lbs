@@ -2,6 +2,7 @@ package hu.zrs.lbs.task;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class InMemoryResourceAccessor implements ResourceAccessor {
 
 	@Override
 	public Set<String> list(final String relativeTo, final String path, final boolean includeFiles, final boolean includeDirectories, final boolean recursive) throws IOException {
-		return null;
+		return Collections.emptySet();
 	}
 
 	@Override

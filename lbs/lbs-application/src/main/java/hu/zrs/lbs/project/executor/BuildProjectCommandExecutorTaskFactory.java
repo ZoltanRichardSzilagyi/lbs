@@ -30,6 +30,8 @@ public class BuildProjectCommandExecutorTaskFactory {
 	public Runnable createTask() {
 		return () -> {try {
 			final ExecuteProjectCommand command = commandExecutionQueue.take();
+			logger.debug("Take command {} to execute", command.getId());
+			
 			final AgentCriteria agentCriteria = new AgentAndCriteria(new AgentIsAvailableCriteria(), new AgentIsIdleCriteria());
 			final Collection<Agent> agents = agentRegistry.getAgent(agentCriteria);
 

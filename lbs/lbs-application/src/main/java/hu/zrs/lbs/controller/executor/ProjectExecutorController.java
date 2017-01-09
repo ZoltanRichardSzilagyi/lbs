@@ -36,7 +36,7 @@ public class ProjectExecutorController {
 
 	private ProjectExecutionStatus executeCommand(final Integer projectId, final Consumer<ExecuteProjectCommand> queueOperation) {
 		final Project project = projectRepository.findOne(projectId);
-		ProjectExecutionStatus executionStatus = null;
+		ProjectExecutionStatus executionStatus;
 		final Integer executionId = new Random().nextInt();
 		if (project != null) {
 			final ExecuteProjectCommand executeCommand = new ExecuteProjectCommand(project, executionId);

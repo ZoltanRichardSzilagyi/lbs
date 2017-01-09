@@ -24,6 +24,7 @@ public class BuildTaskDescriptorTaskChange implements CustomTaskChange {
 	@Autowired
 	private TaskTypeDescriptorChangeLogGenerator changeLogGenerator;
 
+
 	@Override
 	public String getConfirmationMessage() {
 		return null;
@@ -31,17 +32,17 @@ public class BuildTaskDescriptorTaskChange implements CustomTaskChange {
 
 	@Override
 	public void setUp() throws SetupException {
-
+		return;
 	}
 
 	@Override
 	public void setFileOpener(final ResourceAccessor resourceAccessor) {
-
+		return;
 	}
 
 	@Override
 	public ValidationErrors validate(final Database database) {
-		return null;
+		return new ValidationErrors();
 	}
 
 	@Override

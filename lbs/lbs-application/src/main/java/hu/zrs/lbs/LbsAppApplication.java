@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,7 +21,7 @@ import liquibase.integration.spring.SpringLiquibase;
 public class LbsAppApplication {
 
 	public static void main(final String[] args) throws JsonProcessingException {
-		final ConfigurableApplicationContext applicationContext = SpringApplication.run(LbsAppApplication.class, args);
+		SpringApplication.run(LbsAppApplication.class, args);
 	}
 
 	@Bean
@@ -41,9 +40,7 @@ public class LbsAppApplication {
 
 	@Bean
 	public CommandLineRunner runner(@Autowired final BuildProjectCommandExecutor buildProjectCommandExecutor) {
-		return args -> {
-			buildProjectCommandExecutor.startExecution();
-		};
+		return args -> buildProjectCommandExecutor.startExecution();
 	}
 
 	@Bean

@@ -9,37 +9,37 @@ import liquibase.resource.ResourceAccessor;
 
 public class BuildTaskDescriptorChangeTaskDelegator implements CustomTaskChange {
 
-	private static CustomTaskChange DELEGATED_CUSTOM_TASK_CHANGE;
+	private static CustomTaskChange delegatedCustomTaskChange;
 
 	public static synchronized void setDelegatedChangeTask(final CustomTaskChange customTaskChange) {
-		if (DELEGATED_CUSTOM_TASK_CHANGE == null) {
-			DELEGATED_CUSTOM_TASK_CHANGE = customTaskChange;
+		if (delegatedCustomTaskChange == null) {
+			delegatedCustomTaskChange = customTaskChange;
 		}
 	}
 
 	@Override
 	public String getConfirmationMessage() {
-		return DELEGATED_CUSTOM_TASK_CHANGE.getConfirmationMessage();
+		return delegatedCustomTaskChange.getConfirmationMessage();
 	}
 
 	@Override
 	public void setUp() throws SetupException {
-		DELEGATED_CUSTOM_TASK_CHANGE.setUp();
+		delegatedCustomTaskChange.setUp();
 	}
 
 	@Override
 	public void setFileOpener(final ResourceAccessor resourceAccessor) {
-		DELEGATED_CUSTOM_TASK_CHANGE.setFileOpener(resourceAccessor);
+		delegatedCustomTaskChange.setFileOpener(resourceAccessor);
 	}
 
 	@Override
 	public ValidationErrors validate(final Database database) {
-		return DELEGATED_CUSTOM_TASK_CHANGE.validate(database);
+		return delegatedCustomTaskChange.validate(database);
 	}
 
 	@Override
 	public void execute(final Database database) throws CustomChangeException {
-		DELEGATED_CUSTOM_TASK_CHANGE.execute(database);
+		delegatedCustomTaskChange.execute(database);
 	}
 
 }

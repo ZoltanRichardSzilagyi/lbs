@@ -23,7 +23,7 @@ public class ProjectController {
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public void saveProject(@RequestBody final Project project) {
-
+		throw new UnsupportedOperationException("Not implemented yet");
 	}
 
 }

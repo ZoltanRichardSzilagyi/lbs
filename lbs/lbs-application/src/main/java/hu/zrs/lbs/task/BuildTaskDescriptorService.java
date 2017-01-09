@@ -18,7 +18,6 @@ import hu.zrs.lbs.api.task.TaskAttribute;
 import hu.zrs.lbs.api.task.TaskAttributeDescriptor;
 import hu.zrs.lbs.api.task.TaskDescriptor;
 import hu.zrs.lbs.api.task.TaskDescriptorService;
-import hu.zrs.lbs.api.task.TaskDescriptor;
 import hu.zrs.lbs.api.task.TaskTypeMapFactory;
 
 @Component
@@ -32,7 +31,7 @@ public class BuildTaskDescriptorService implements TaskDescriptorService {
 	@Override
 	public Collection<TaskDescriptor> getTaskDescriptors() {
 		final Map<String, Class<Task>> taskTypes = taskTypeMapFactory.createTaskTypeMap("hu.zrs.lbs.task.build");
-		final Collection<TaskDescriptor> taskIdentifiers = taskTypes.entrySet().stream().map(taskTypeEntry -> {
+		return taskTypes.entrySet().stream().map(taskTypeEntry -> {
 			final String taskName = taskTypeEntry.getKey();
 			final Class<Task> taskType = taskTypeEntry.getValue();
 
@@ -47,7 +46,6 @@ public class BuildTaskDescriptorService implements TaskDescriptorService {
 			taskAttributeDescriptors.addAll(getTaskAttributeIdentifiers(taskTypeDescriptor));
 			return taskTypeDescriptor;
 		}).collect(Collectors.toList());
-		return taskIdentifiers;
 	}
 
 	private Collection<TaskAttributeDescriptor> getTaskAttributeIdentifiers(final TaskDescriptor taskTypeDescriptor) {

@@ -15,7 +15,7 @@ public class PollingBuildAgentAvailabilityVerifier {
 
 	private static final Logger logger = LoggerFactory.getLogger(PollingBuildAgentAvailabilityVerifier.class);
 
-	private final Long pollingIntervalInMs = 1_000L;
+	private static final Long POLLING_INTERVAL_IN_MS = 1_000L;
 
 	private final AgentAvailabilityVerifier verifier;
 
@@ -29,10 +29,8 @@ public class PollingBuildAgentAvailabilityVerifier {
 		pollingExecutor.scheduleWithFixedDelay(() -> {
 			logger.info("Verifying list of unavailable agents.");
 			final List<Agent> unavailableAgents = verifier.verify();
-			unavailableAgents.forEach(agent -> {
-				logger.error("Agent {} is not available.", agent.getId());
-			});
-		} , 1000, pollingIntervalInMs, TimeUnit.MILLISECONDS);
+			unavailableAgents.forEach(agent -> logger.error("Agent {} is not available.", agent.getId()));
+		} , 1000, POLLING_INTERVAL_IN_MS, TimeUnit.MILLISECONDS);
 	}
 
 	public void destroy() {

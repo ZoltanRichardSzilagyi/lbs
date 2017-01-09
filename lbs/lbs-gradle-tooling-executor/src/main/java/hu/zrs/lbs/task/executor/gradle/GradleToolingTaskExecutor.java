@@ -34,8 +34,7 @@ public class GradleToolingTaskExecutor implements TaskExecutor {
 
 	private ProjectConnection openProjectConnection() {
 		final GradleConnector gradleConnector = GradleConnector.newConnector().forProjectDirectory(projectPath);
-		final ProjectConnection connection = gradleConnector.connect();
-		return connection;
+		return gradleConnector.connect();
 	}
 
 	private BuildLauncher createBuildLauncher(final ExecutorConfiguration configuration, final ProjectConnection connection) {
