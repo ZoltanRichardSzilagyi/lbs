@@ -12,6 +12,10 @@ buildscript {
 	}
 }
 
+plugins{
+	id 'com.craigburke.client-dependencies' version '1.3.1'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -19,6 +23,16 @@ apply plugin: 'org.springframework.boot'
 jar {
 	baseName = 'lbs-application'
 	version = '1.0.0'
+}
+
+clientDependencies {
+	bower {
+		'jquery'('3.1.1')
+		'knockout'('3.4.1')
+	}
+	npm {
+		'bootstrap'('3.3.7', exclude: 'jquery')
+	}
 }
 
 dependencies {
@@ -42,4 +56,9 @@ dependencies {
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+// TODO automate adding assets to war
+task copyAssets(type: Copy){
+	from 'src/assets/vendor'
+	into 'src/main/resources/static/js/vendor'
 }
